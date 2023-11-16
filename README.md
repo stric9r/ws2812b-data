@@ -31,8 +31,8 @@ Using this module is pretty simple.  Below is psuedo-ish code to help understand
 static ws2812b_t led_strip;
 
 /// Create the storage and stream buffers
-static uint8_t led_strip1_buffer[LED_STRIP_BUFF_SZ] = {0u};
-static uint8_t led_strip1_stream[LED_STRIP_STREAM_SZ] = {0u};
+static uint8_t led_strip_buffer[LED_STRIP_BUFF_SZ] = {0u};
+static uint8_t led_strip_stream[LED_STRIP_STREAM_SZ] = {0u};
 
 int main(void)
 {
@@ -45,9 +45,9 @@ int main(void)
       // Init the WS2812B instance by updating 
       // the strucutre with pointers to buffers, 
       // sizes, and the number of LEDs
-      led_strip.p_buffer = led_strip1_buffer;
+      led_strip.p_buffer = led_strip_buffer;
       led_strip.buffer_sz = LED_STRIP_BUFF_SZ;
-      led_strip.p_stream = led_strip1_stream;
+      led_strip.p_stream = led_strip_stream;
       led_strip.stream_sz = LED_STRIP_STREAM_SZ;
       led_strip.led_count = LED_STRIP_LED_COUNT;
     
@@ -61,7 +61,7 @@ int main(void)
       ws2812b_data_set_all(&led_strip, red, 0, 0);
       
       // Generate the stream to pass to SPI driver
-      ws2812b_update_stream_2p5mhz(&led_strip1);
+      ws2812b_update_stream_2p5mhz(&led_strip);
       
       // Loop forever increasing the brightness of red until it rolls over
       while(true)
@@ -76,7 +76,7 @@ int main(void)
             ws2812b_data_set_all(&led_strip, ++red, 0, 0);
               
             // Generate the new stream to pass to SPI driver
-            ws2812b_update_stream_2p5mhz(&led_strip1);
+            ws2812b_update_stream_2p5mhz(&led_strip);
               
             // Write out the data
             spi_write(led_strip.p_stream, led_strip.p_stream_size);
