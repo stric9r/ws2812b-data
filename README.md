@@ -5,9 +5,9 @@ If you need it to work with a different clock speed then you'll need to create a
 ``` ws2812b_update_stream_?Mhz(ws2812b_t * p_instance) ``` function.
 
 This module works by allowing the app to update the storage buffer with the colors per LED in the strip.
-Once ready, the app calls the ```ws2812b_update_stream...``` function and then passes the 
-```ws2812b_t::p_stream``` and ```ws2812b_t::stream_size``` to its platform SPI write function.
-After the write completes, there should be a reset delay added  by the app.  
+Once ready, the app calls the ```ws2812b_update_stream...``` function and then the passes the 
+```ws2812b_t::p_stream``` and ```ws2812b_t::stream_size``` to the platform's SPI write function.
+After the write completes, there should be a reset delay added by the app.  
 The stream does not contain the reset delay.  It is up the the app to implement this.
 
 Example of it working [here](https://youtube.com/shorts/RE23W8GA9lc?si=S_XkwIppuXk_Oa9J).  Note it only has a single LED right now.
