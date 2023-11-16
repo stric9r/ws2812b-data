@@ -1,5 +1,14 @@
 # ws2812b-data
 This module generates a stream of data for a WSS2812B LED strip to stream over SPI.
+It only works with 2.5Mhz or 5Mhz SPI.  (Note that 5Mhz is not tested yet).
+If you need it to work with a different clock speed then you'll need to create a 
+``` ws2812b_update_stream_?Mhz(ws2812b_t * p_instance) ``` function.
+
+This module works by allowing the app to update the storage buffer with the colors per LED in the strip.
+Once ready, the app calls the ```ws2812b_update_stream...``` function and then passes the 
+ws2812b_t::p_stream and ws2812b_t::stream_size to its platform SPI write function.
+After the write completes, there should be a reset delay added  by the app.  
+The stream does not contain the reset delay.  It is up the the app to implement this.
 
 ## Usage
 Using this module is pretty simple.  Below is psuedo-ish code to help understand, it is a very simple example to convey how to use this module.
