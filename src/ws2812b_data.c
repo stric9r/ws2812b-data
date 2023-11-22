@@ -1,7 +1,6 @@
 /// ws2812b_data
 ///
 /// This module tracks user changes and updates a stream buffer used by SPI
-/// It is assumed that SPI is running at 2.5Mbps.
 
 #include "ws2812b_data.h"
 
@@ -65,27 +64,32 @@ bool ws2812b_data_set_x(ws2812b_t * const p_instance,
 {
     bool b_result = false;
 
-   // if(p_instance->init_state != WS2812B_INIT_FAILED)
+
+    if(0 < led_num_start)
     {
-        size_t const led_idx = (led_num_start - 1u);
-
-        // Verify not beyond bounds
-        if(p_instance->led_count >= (led_idx + led_num_to_set))
+        if(p_instance->init_state != WS2812B_INIT_FAILED)
         {
-            size_t const start_idx = (led_idx * WS2812B_BYTES_PER_LED);
-            size_t const num_of_bytes = (led_num_to_set * WS2812B_BYTES_PER_LED);
+            size_t const led_idx = (led_num_start - 1u);
 
-            for(size_t idx = start_idx; idx < num_of_bytes; idx += WS2812B_BYTES_PER_LED)
+            // Verify not beyond bounds
+            if(p_instance->led_count > (led_idx + led_num_to_set - 1u))
             {
-                p_instance->p_buffer[idx]      = green;
-                p_instance->p_buffer[idx + 1u] = red;
-                p_instance->p_buffer[idx + 2u] = blue;
-            }
+                size_t const start_idx = (led_idx * WS2812B_BYTES_PER_LED);
 
-            b_result = true;
+                size_t const num_of_bytes =
+                      start_idx + (led_num_to_set * WS2812B_BYTES_PER_LED);
+
+                for(size_t idx = start_idx; idx < num_of_bytes; idx += WS2812B_BYTES_PER_LED)
+                {
+                    p_instance->p_buffer[idx]      = green;
+                    p_instance->p_buffer[idx + 1u] = red;
+                    p_instance->p_buffer[idx + 2u] = blue;
+                }
+
+                b_result = true;
+            }
         }
     }
-
     return b_result;
 }
 
@@ -145,11 +149,11 @@ bool ws2812b_data_clear_all(ws2812b_t * const p_instance)
 /// @param p_instance      The instance of a ws2912b_t structure (LED string)
 void ws2812b_update_stream_2p5mhz(ws2812b_t * const p_instance)
 {
-    //if(p_instance->init_state != WS2812B_INIT_2p5MHz)
+    if(p_instance->init_state == WS2812B_INIT_2p5MHz)
     {
         // Loop through each byte
         size_t const buffer_size = p_instance->buffer_sz;
-        size_t const stream_size = p_instance->stream_sz;
+        //size_t const stream_size = p_instance->stream_sz;
         uint8_t const * const p_buffer = p_instance->p_buffer;
         uint8_t * const p_stream = p_instance->p_stream;
 
@@ -207,11 +211,11 @@ void ws2812b_update_stream_2p5mhz(ws2812b_t * const p_instance)
 /// @param p_instance      The instance of a ws2912b_t structure (LED string)
 void ws2812b_update_stream_5mhz(ws2812b_t * const p_instance)
 {
-    //if(p_instance->init_state != WS2812B_INIT_5MHz)
+    if(p_instance->init_state == WS2812B_INIT_5MHz)
     {
         // Loop through each byte
         size_t const buffer_size = p_instance->buffer_sz;
-        size_t const stream_size = p_instance->stream_sz;
+        //size_t const stream_size = p_instance->stream_sz;
         uint8_t const * const p_buffer = p_instance->p_buffer;
         uint8_t * const p_stream = p_instance->p_stream;
 
