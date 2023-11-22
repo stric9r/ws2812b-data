@@ -65,4 +65,3 @@ void ws2812b_update_stream_2p5mhz(ws2812b_t * const p_instance);
 void ws2812b_update_stream_5mhz(ws2812b_t * const p_instance);
 
 #endif /* WS2812B_DATA_H_ */
-
