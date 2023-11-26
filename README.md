@@ -10,8 +10,7 @@ Once ready, the app calls the ```ws2812b_update_stream...``` function and then t
 After the write completes, there should be a reset delay added by the app.  
 The stream does not contain the reset delay.  It is up the the app to implement this.
 
-Example of it working [here](https://youtube.com/shorts/RE23W8GA9lc?si=S_XkwIppuXk_Oa9J).  Note it only has a single LED right now.
-Will upload a better example when I have a strip.
+Example of it working [here](https://www.youtube.com/watch?v=ARf2NLlesRc)
 
 ## Usage
 Using this module is pretty simple.  Below is psuedo-ish code to help understand, it is a very simple example to convey how to use this module.
