@@ -1,7 +1,6 @@
 /// ws2812b_data
 ///
 /// This module tracks user changes and updates a stream buffer used by SPI
-/// It is assumed that SPI is running at 2.5Mbps.
 
 #ifndef WS2812B_DATA_H_
 #define WS2812B_DATA_H_
@@ -9,6 +8,7 @@
 #include "stdint.h"
 #include "stddef.h"
 #include "stdbool.h"
+
 
 /// Used to help with storage buffer creation, 3 bytes per LED
 #define WS2812B_BYTES_PER_LED 3u
@@ -22,6 +22,7 @@
 #define WS2812_BYTES_PER_LED_2P5MHZ (WS2812_BITS_PER_LED_2P5MHZ / 8u)
 /// Bytes per LED for stream buffer running at 5MHz
 #define WS2812_BYTES_PER_LED_5MHZ (WS2812_BITS_PER_LED_5MHZ / 8u)
+
 
 typedef enum
 {
