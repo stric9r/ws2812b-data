@@ -1,15 +1,30 @@
-# ws2812b-data
+# ws2812b-driver
+
+## ws2812b_data
 This module generates a stream of data for a WSS2812B LED strip to stream over SPI.
 It only works with 2.5Mhz or 5Mhz SPI.  (Note that 5Mhz is not tested yet).
 If you need it to work with a different clock speed then you'll need to create a 
 ``` ws2812b_update_stream_?Mhz(ws2812b_t * p_instance) ``` function.
 
-This module works by allowing the app to update the storage buffer with the colors per LED in the strip.
+This works by allowing the app to update the storage buffer with the colors per LED in the strip.
 Once ready, the app calls the ```ws2812b_update_stream...``` function and then the passes the 
 ```ws2812b_t::p_stream``` and ```ws2812b_t::stream_size``` to the platform's SPI write function.
 After the write completes, there should be a reset delay added by the app.  
 The stream does not contain the reset delay.  It is up the the app to implement this.
 
+## ws2812b_draw
+Is an optional add on that treats a pixel or multiple pixels as "object" that need to be "drawn"
+by the ws2812b_data module.  It provides methods to draw objects as solids, or blink them.  It also
+provides various methods to update an objects attributes such as the length, blink rate, motion/direction, etc.
+See the doxygen documentation in the module for more info.
+
+## ws2812b_draw_common.h
+Various macros and structures used by the ws2812b modules.
+
+## ws2812b.h
+Main include for the project, it includes all headers needed for this project.
+
+## Example Video:
 Example of it working [here](https://www.youtube.com/watch?v=ARf2NLlesRc)
 
 ## Usage
